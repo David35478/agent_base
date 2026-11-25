@@ -42,10 +42,12 @@ Track: Agentic Stock Finance, Base Stocks Maxxing Season. Submit by Dec 4, 2026.
   - Events to watch (from base-std `IB20Asset`/`IB20`): UIMultiplier update/cancel (`UIMultiplierUpdateCancelled`), `MultiplierUpdated`, `Announcement`, `EndAnnouncement`, `Paused`/`Unpaused`.
 
 **Next**
-- D3 remainder: per-pool type check, quotes for $10/$100/$1000 buys and sells via the Slipstream quoter, aggregator comparison, then record the Route A/B decision.
-- D5 remainder: read PolicyRegistry `isAuthorized(5, houseWallet)` before any transfer.
-- D6: check whether feed price/1e8 equals per-token NAV or per-share NAV, using DEX mid and uiMultiplier. Write a test that fails if the multiplier is applied twice or not at all.
-- Then build step 1 (core pure functions + tests).
+- Build step 1: core pure functions (weights, planner) with property tests.
+- D3 remainder moved to build step 3: aggregator comparison and the Route A/B decision (needs an aggregator API to compare against; pool math baseline recorded).
+
+**Done in this session (continued)**
+- D3 remainder: NVDAc/USDC pool is Aerodrome Slipstream CL (tickSpacing 10, fee 338). Quotes computed from real pool state (slot0 sqrtPriceX96=6.5259e28, liquidity=33093483985583) with Uniswap v3 math, sanity-gated against the pool mid ($147.40): $10/$100/$1000 buys = 3.4/3.4/3.6 bps impact. Recorded in `discovery/pools.json` (NVDAc `quote_check`), script `discovery/d3-quotes.mjs`. Earlier reciprocal-sqrt math was wrong; the direct formula reproduces the mid and a sanity gate now fails the script if it drifts.
+- D6: `test/units.test.mjs` (vitest) — 5 tests, all passing (`npx vitest run` exit 0). Encodes: B20 8 decimals, uiMultiplier WAD 18dp, feed 8dp already embeds the multiplier (applying it again overstates NAV); tests fail if the multiplier is applied twice or not at all; round-trip raw<->UI is exact; min-$5 trade size enforced at live NAV.
 
 **Blockers / open questions**
 - Which GitHub repo is `agent_base` (owner/name)? Nothing has been pushed yet.

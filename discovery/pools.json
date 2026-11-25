@@ -229,7 +229,19 @@
         "txns24h": 33,
         "vol24h": 283
       }
-    ]
+    ],
+    "quote_check": {
+      "mid_from_sqrtP": 147.3952,
+      "fee": 338,
+      "tickSpacing": 10,
+      "type": "Aerodrome Slipstream CL",
+      "buys_bps": {
+        "usd10": 3.4,
+        "usd100": 3.4,
+        "usd1000": 3.6
+      },
+      "script": "discovery/d3-quotes.mjs"
+    }
   },
   {
     "symbol": "SPCXc",
