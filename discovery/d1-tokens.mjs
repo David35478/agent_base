@@ -2,7 +2,7 @@
 const BASE = "https://api.coinbase.com/v1/tokenized-stocks";
 let out = [], page;
 do {
-  const url = BASE + (page ? `?next_page_token=${page}` : "");
+  const url = BASE + (page ? `?page_token=${page}` : "");
   let j;
   for (let attempt = 1; ; attempt++) {
     const r = await fetch(url);
@@ -25,4 +25,5 @@ const fields = ["contract_address","symbol","name","decimals","multiplier","tota
 console.table(out.map(t => {
   const o = {}; for (const f of fields) o[f] = t[f]; return o;
 }));
-await Bun.write("discovery/tokens.json", JSON.stringify(out, null, 2));
+const { writeFileSync } = await import("node:fs");
+writeFileSync("discovery/tokens.json", JSON.stringify(out, null, 2));
