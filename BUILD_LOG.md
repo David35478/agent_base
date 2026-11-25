@@ -56,3 +56,9 @@ Track: Agentic Stock Finance, Base Stocks Maxxing Season. Submit by Dec 4, 2026.
 
 **Postable line**
 "AfterHours day 1: mapped all 415 Coinbase tokenized stocks on Base, found 13 with live NAV feeds and $0.2–1.7M Aerodrome liquidity each. Feeds were still ticking at 5am ET, so our regime engine will trust recorded data, not the calendar."
+
+## Session 2 — published to GitHub
+
+- Published the repo as **agent_base**: https://github.com/David35478/agent_base (public, master @ ddef79f).
+- Fixed before push: node_modules (613 files) had been accidentally committed; untracked it and added to .gitignore (14 tracked files now).
+- Coinbase API key will be added later as a Vercel env var, not in the repo.
